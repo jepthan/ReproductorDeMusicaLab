@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
                 val bundle = Bundle()
-                bundle.putString("edttext", query)
+                bundle.putString("serchtext", query)
 
                 //searchTracks(query!!)
 

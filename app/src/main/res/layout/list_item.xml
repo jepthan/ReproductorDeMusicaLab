@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="100dp"
+        android:layout_margin="10dp"
+    android:background="@color/black"
+
+    >
+
+
+
+    <ImageView
+    android:id="@+id/ImagenTrack"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_launcher_background"
+        app:cornerRadius="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/NameTack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Titulo cancion"
+            android:textSize="25sp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            />
+        <TextView
+            android:id="@+id/AlbumTack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Album"
+            android:gravity="center_vertical"
+            android:textColor="@color/grey"
+            android:textFontWeight="20"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -44,6 +44,7 @@ class TracksViewModel : ViewModel() {
     }
 
     private fun searchTracks(query: String) {
+
         val clientId = "f13969da015a4f49bb1f1edef2185d4e"
         val clientSecret = "e3077426f4714315937111d5e82cd918"
         val base64Auth = Base64.encodeToString("$clientId:$clientSecret".toByteArray(), Base64.NO_WRAP)
@@ -56,6 +57,7 @@ class TracksViewModel : ViewModel() {
 
         tokenRequest.enqueue(object : Callback<AccessTokenResponse> {
             override fun onResponse(call: Call<AccessTokenResponse>, response: Response<AccessTokenResponse>) {
+                val list = mutableListOf<Track>()
                 if (response.isSuccessful) {
                     val accessTokenResponse = response.body()
                     val accessToken = accessTokenResponse?.accessToken
@@ -71,8 +73,9 @@ class TracksViewModel : ViewModel() {
                                     if (trackResponse != null && trackResponse.tracks.items.isNotEmpty()) {
                                         for (track in trackResponse!!.tracks.items){
                                             System.out.println(track.name + track.album.name)
-
+                                            list.add(track)
                                         }
+                                        _ListMutableData.value = list
                                     } else {
                                         displayErrorMessage("No se encontraron canciones.")
                                     }
@@ -93,11 +96,18 @@ class TracksViewModel : ViewModel() {
                     System.out.println("Mensaje:    "+response.raw())
                     displayErrorMessage("Error en la respuesta del servidor.")
                 }
+
             }
 
             override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
                 displayErrorMessage("Error en la solicitud de accessToken.")
             }
         })
+    }
+
+    public fun updatelist(search: String?) {
+        if(search != null || search == "")
+            searchTracks(search)
+
     }
 }
