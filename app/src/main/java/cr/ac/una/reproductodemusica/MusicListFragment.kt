@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cr.ac.una.reproductodemusica.adapter.TracksAdapter
@@ -70,7 +69,7 @@ private lateinit var tracks: List<Track>
         GlobalScope.launch(Dispatchers.Main) {
             viewModel.updatelist(searchtext)
         }
-        
+        //val bottomNavHeight: Int = getNavigationBarSize(this).y
 
     }
 

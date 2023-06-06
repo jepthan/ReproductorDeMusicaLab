@@ -1,17 +1,15 @@
 package cr.ac.una.reproductodemusica.adapter
 
 
+
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import cr.ac.una.reproductodemusica.R
-import cr.ac.una.reproductodemusica.entity.Album
-import cr.ac.una.reproductodemusica.entity.Image
 import cr.ac.una.reproductodemusica.entity.Track
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -74,12 +72,29 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
         val imagenView = itemView.findViewById<ImageView>(R.id.ImagenTrack)
         val nombreTextView = itemView.findViewById<TextView>(R.id.NameTack)
         val albumTextView = itemView.findViewById<TextView>(R.id.AlbumTack)
+        val menu = itemView.findViewById<ImageView>(R.id.more_actions)
+
+        private fun manageItemClick(menuItem: MenuItem): Boolean {
+            return when(menuItem.itemId){
+                R.id.AlbumInfo-> {
+                    println("I HATEEE YOU")
+                    true
+                }
+                else -> false
+            }
+        }
+
 
         fun bind(track: Track) {
 
             nombreTextView.text = track.name
             albumTextView.text = track.album.name
-
+            menu.setOnClickListener {
+                val popupMenu = PopupMenu(itemView.context, it)
+                popupMenu.inflate(R.menu.menu_item)
+                popupMenu.setOnMenuItemClickListener(::manageItemClick)
+                popupMenu.show()
+            }
             GlobalScope.launch {
                 withContext(Dispatchers.IO){
                     val url = URL(track.album.images[0].url)
