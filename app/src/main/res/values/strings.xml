@@ -3,7 +3,7 @@
     <string name="action_search">Search</string>
     <!-- Strings used for fragments for navigation -->
     <string name="music_list_fragment_label">Lista de Canciones</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="album_fragment_label">Album</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

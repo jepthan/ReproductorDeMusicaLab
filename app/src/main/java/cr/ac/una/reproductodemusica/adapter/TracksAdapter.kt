@@ -3,12 +3,16 @@ package cr.ac.una.reproductodemusica.adapter
 
 
 import android.graphics.BitmapFactory
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import cr.ac.una.reproductodemusica.AlbumFragment
+import cr.ac.una.reproductodemusica.MusicListFragment
 import cr.ac.una.reproductodemusica.R
 import cr.ac.una.reproductodemusica.entity.Track
 import kotlinx.coroutines.Dispatchers
@@ -77,7 +81,11 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
         private fun manageItemClick(menuItem: MenuItem): Boolean {
             return when(menuItem.itemId){
                 R.id.AlbumInfo-> {
-                    println("I HATEEE YOU")
+                    val bundle = Bundle()
+                    bundle.putString("AlbumName", itemView.findViewById<TextView>(R.id.AlbumTack).text.toString())
+                    val fragobj = AlbumFragment()
+                    fragobj.setArguments(bundle)
+                    itemView.findNavController().navigate(R.id.action_MusicListFragment_to_AlbumFragment)
                     true
                 }
                 else -> false
