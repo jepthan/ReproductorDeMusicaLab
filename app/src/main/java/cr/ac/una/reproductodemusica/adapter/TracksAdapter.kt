@@ -4,15 +4,11 @@ package cr.ac.una.reproductodemusica.adapter
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cr.ac.una.reproductodemusica.AlbumFragment
-import cr.ac.una.reproductodemusica.MusicListFragment
 import cr.ac.una.reproductodemusica.R
 import cr.ac.una.reproductodemusica.entity.Track
 import kotlinx.coroutines.Dispatchers
@@ -78,14 +74,16 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
         val albumTextView = itemView.findViewById<TextView>(R.id.AlbumTack)
         val menu = itemView.findViewById<ImageView>(R.id.more_actions)
 
-        private fun manageItemClick(menuItem: MenuItem): Boolean {
+        private fun manageItemClick(menuItem: MenuItem, track: Track): Boolean {
             return when(menuItem.itemId){
                 R.id.AlbumInfo-> {
                     val bundle = Bundle()
-                    bundle.putString("AlbumName", itemView.findViewById<TextView>(R.id.AlbumTack).text.toString())
-                    val fragobj = AlbumFragment()
-                    fragobj.setArguments(bundle)
-                    itemView.findNavController().navigate(R.id.action_MusicListFragment_to_AlbumFragment)
+
+                    bundle.putString("AlbumId", track.album.id)
+                    println("AlbumId: ${track.album.id}")
+                    var fragobj = AlbumFragment()
+                    fragobj.arguments = bundle
+                    itemView.findNavController().navigate(R.id.action_MusicListFragment_to_AlbumFragment, bundle)
                     true
                 }
                 else -> false
@@ -98,9 +96,15 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
             nombreTextView.text = track.name
             albumTextView.text = track.album.name
             menu.setOnClickListener {
-                val popupMenu = PopupMenu(itemView.context, it)
+                val Context = ContextThemeWrapper(itemView.context, R.style.PopupMenuStyle)
+                val popupMenu = PopupMenu(Context, it)
+
                 popupMenu.inflate(R.menu.menu_item)
-                popupMenu.setOnMenuItemClickListener(::manageItemClick)
+
+                popupMenu.setOnMenuItemClickListener{ item: MenuItem? ->
+
+                    manageItemClick(item!!, track)
+                }
                 popupMenu.show()
             }
             GlobalScope.launch {

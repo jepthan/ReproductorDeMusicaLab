@@ -28,7 +28,7 @@ class MusicListFragment : Fragment() {
     private val binding get() = _binding!!
     private var searchtext: String? = null
     private lateinit var viewModel: TracksViewModel
-private lateinit var tracks: List<Track>
+    private lateinit var tracks: List<Track>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,11 +64,11 @@ private lateinit var tracks: List<Track>
             adapter.updateData(elements as ArrayList<Track>)
             tracks = elements
         }
-
+/*
         // Se llama el código del ViewModel que cargan los datos
         GlobalScope.launch(Dispatchers.Main) {
             viewModel.updatelist(searchtext)
-        }
+        }*/
         //val bottomNavHeight: Int = getNavigationBarSize(this).y
 
     }

@@ -2,6 +2,6 @@ package cr.ac.una.reproductodemusica.entity
 
 data class Track(
     val name: String,
-    val album: Album,
+    var album: Album,
     val uri: String?
 )

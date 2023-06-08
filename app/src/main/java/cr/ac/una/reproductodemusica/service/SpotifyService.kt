@@ -1,6 +1,7 @@
 package cr.ac.una.reproductodemusica.service
 
 import cr.ac.una.reproductodemusica.entity.AccessTokenResponse
+import cr.ac.una.reproductodemusica.entity.AlbumResponse
 import cr.ac.una.reproductodemusica.entity.TrackResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -18,4 +19,10 @@ interface SpotifyService {
         @Header("Authorization") authorization: String,
         @Query("q") query: String
     ): Call<TrackResponse>
+
+    @GET("v1/albums/{id}")
+    fun getAlbum(
+        @Header("Authorization") authorization: String,
+        @Path("id") id: String
+    ): Call<AlbumResponse>
 }
