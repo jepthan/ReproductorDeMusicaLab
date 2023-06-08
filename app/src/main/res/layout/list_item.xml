@@ -12,7 +12,6 @@
     android:id="@+id/ImagenTrack"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:src="@drawable/ic_launcher_background"
        />
 
     <LinearLayout

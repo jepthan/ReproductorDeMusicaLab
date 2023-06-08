@@ -73,6 +73,7 @@ class TracksViewModel : ViewModel() {
                                     if (trackResponse != null && trackResponse.tracks.items.isNotEmpty()) {
                                         for (track in trackResponse!!.tracks.items){
                                             System.out.println(track.name + track.album.name)
+                                            System.out.println(track.album.artists[0].toString())
                                             list.add(track)
                                         }
                                         _ListMutableData.value = list
@@ -100,7 +101,8 @@ class TracksViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
-                displayErrorMessage("Error en la solicitud de accessToken.")
+                displayErrorMessage(t.toString())
+                displayErrorMessage("Error en la solicitud de accessToken.TrackViewModel")
             }
         })
     }

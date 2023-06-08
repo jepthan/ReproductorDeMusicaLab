@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cr.ac.una.reproductodemusica.AlbumFragment
+import cr.ac.una.reproductodemusica.ArtistaFragment
 import cr.ac.una.reproductodemusica.R
 import cr.ac.una.reproductodemusica.entity.Track
 import kotlinx.coroutines.Dispatchers
@@ -84,6 +85,15 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
                     var fragobj = AlbumFragment()
                     fragobj.arguments = bundle
                     itemView.findNavController().navigate(R.id.action_MusicListFragment_to_AlbumFragment, bundle)
+                    true
+                }
+                R.id.ArtistInfo-> {
+                    val bundle = Bundle()
+                    bundle.putString("ArtistId", track.album.artists[0].id)
+                    println("ArtistId: ${track.album.artists[0].id}")
+                    var fragobj = ArtistaFragment()
+                    fragobj.arguments = bundle
+                    itemView.findNavController().navigate(R.id.action_MusicListFragment_to_ArtisFragment, bundle)
                     true
                 }
                 else -> false

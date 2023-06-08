@@ -5,5 +5,6 @@ data class AlbumResponse(
     val images: List<Image>,
     val id: String,
     val tracks: Tracks,
-    val genres: List<String>
+    val genres: List<String>,
+    val artists: List<Artist>
 )

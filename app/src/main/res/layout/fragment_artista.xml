@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AlbumFragment"
+    tools:context=".ArtistaFragment"
     android:orientation="vertical">
+
+
     <ImageView
         android:layout_width="500px"
         android:layout_height="500px"
-        android:id="@+id/album_image"
+        android:id="@+id/artist_Image"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"/>
     <TextView
-        android:id="@+id/albumName"
+        android:id="@+id/artistName"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
@@ -21,24 +22,14 @@
         android:layout_marginTop="5dp"
         android:text=""
         />
-    <TextView
-        android:id="@+id/ArtistaName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="20sp"
-        android:layout_marginTop="5dp"
-        android:text=""
-        />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_tracksAlbum"
+        android:id="@+id/list_TopArtists"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="5dp"
         />
-
 
 
 </LinearLayout>
