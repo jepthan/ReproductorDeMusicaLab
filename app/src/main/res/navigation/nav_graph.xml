@@ -36,6 +36,9 @@
             android:id="@+id/action_AlbumFragment_to_ArtistFragment"
             app:destination="@id/ArtistFragment"
             />
+        <action
+            android:id="@+id/action_AlbumFragment_self"
+            app:destination="@id/AlbumFragment" />
 
     </fragment>
 
@@ -44,6 +47,12 @@
         android:name="cr.ac.una.reproductodemusica.ArtistaFragment"
         android:label="Artista"
         tools:layout="@layout/fragment_album">
+        <action
+            android:id="@+id/action_ArtistFragment_to_albumFragment"
+            app:destination="@id/AlbumFragment" />
+        <action
+            android:id="@+id/action_ArtistFragment_to_self"
+            app:destination="@id/ArtistFragment" />
 
     </fragment>
 </navigation>

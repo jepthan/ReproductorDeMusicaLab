@@ -75,7 +75,9 @@ class AlbumFragment : Fragment() {
 
         tracks = mutableListOf<Track>()
         var adapter = TracksAdapter(tracks as ArrayList<Track>)
+        adapter.page = 2
         binding.listTracksAlbum.adapter = adapter
+
         binding.listTracksAlbum.layoutManager = LinearLayoutManager(requireContext())
         viewModel.listLiveData.observe(viewLifecycleOwner) { elements ->
 

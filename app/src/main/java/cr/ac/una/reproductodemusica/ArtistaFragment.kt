@@ -75,6 +75,7 @@ class ArtistaFragment : Fragment() {
 
         tracks = mutableListOf<Track>()
         var adapter =  TracksAdapter(tracks as ArrayList<Track>)
+        adapter.page = 3
         binding.listTopArtists.adapter = adapter
         binding.listTopArtists.layoutManager = LinearLayoutManager(requireContext())
 
