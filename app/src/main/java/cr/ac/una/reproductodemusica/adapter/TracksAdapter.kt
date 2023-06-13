@@ -24,6 +24,8 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
     private val VIEW_TYPE_HEADER = 1
     private val VIEW_TYPE_ITEM = 0
 
+    public var page = 1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return if (viewType == VIEW_TYPE_HEADER) {
@@ -84,7 +86,15 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
                     println("AlbumId: ${track.album.id}")
                     var fragobj = AlbumFragment()
                     fragobj.arguments = bundle
-                    itemView.findNavController().navigate(R.id.action_MusicListFragment_to_AlbumFragment, bundle)
+                    if (page == 1){
+                        itemView.findNavController().navigate(R.id.action_MusicListFragment_to_AlbumFragment, bundle)
+                    }
+                    else if(page == 2){
+                        itemView.findNavController().navigate(R.id.action_AlbumFragment_self, bundle)
+                    }else if (page == 3){
+                        itemView.findNavController().navigate(R.id.action_ArtistFragment_to_albumFragment, bundle)
+                    }
+
                     true
                 }
                 R.id.ArtistInfo-> {
@@ -93,7 +103,14 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
                     println("ArtistId: ${track.album.artists[0].id}")
                     var fragobj = ArtistaFragment()
                     fragobj.arguments = bundle
-                    itemView.findNavController().navigate(R.id.action_MusicListFragment_to_ArtisFragment, bundle)
+                    if (page == 1){
+                        itemView.findNavController().navigate(R.id.action_MusicListFragment_to_ArtisFragment, bundle)
+                    }
+                    else if(page == 2){
+                        itemView.findNavController().navigate(R.id.action_AlbumFragment_to_ArtistFragment, bundle)
+                    }else if (page == 3){
+                        itemView.findNavController().navigate(R.id.action_ArtistFragment_to_self, bundle)
+                    }
                     true
                 }
                 else -> false
