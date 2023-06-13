@@ -1,5 +1,6 @@
 package cr.ac.una.reproductodemusica
 
+import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.os.Bundle
 import android.util.Base64
@@ -144,6 +145,8 @@ class MainActivity : AppCompatActivity() {
                     return false
                 }
 
+
+                @SuppressLint("Range")
                 override fun onSuggestionClick(position: Int): Boolean {
                     //hideKeyboard()
                     val cursor = searchView.suggestionsAdapter.getItem(position) as Cursor
