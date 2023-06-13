@@ -60,9 +60,9 @@ class MainActivity : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
 
-        var menuItem = menu.findItem(R.id.action_search);
+        val menuItem = menu.findItem(R.id.action_search);
 
-        var searchView = menuItem.actionView as SearchView;
+        val searchView = menuItem.actionView as SearchView;
 
         searchView.queryHint = "Buscar... ";
         //searchView.findViewById<AutoCompleteTextView>(R.id.).threshold = 1
