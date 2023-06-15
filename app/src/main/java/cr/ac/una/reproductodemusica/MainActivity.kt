@@ -113,29 +113,24 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(query: String?): Boolean {
 
-
                 if (query!!.length >= 3) {
-
-
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {
 
                             val cursor =
                                 MatrixCursor(arrayOf(BaseColumns._ID, SearchManager.SUGGEST_COLUMN_TEXT_1))
-                            System.out.println("Muerase1" + query)
+
                             val sugerencias = busquedaDao.buscarCoincidencias(query)
 
                             sugerencias.forEachIndexed { index, s ->
                                 cursor.addRow(arrayOf(index, s))
-                                System.out.println("Muerase " + s)
+
                             }
                             withContext(Dispatchers.Main){
                                 cursorAdapter.changeCursor(cursor)
                                 cursorAdapter.notifyDataSetChanged()
-                                //searchView.setSuggestionsAdapter(cursorAdapter)
                                 searchView.setQuery(query, false)
 
-                                System.out.println("Muerase2" + query)
                             }
 
                         }
