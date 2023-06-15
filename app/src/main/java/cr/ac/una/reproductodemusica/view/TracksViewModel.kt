@@ -72,8 +72,7 @@ class TracksViewModel : ViewModel() {
 
                                     if (trackResponse != null && trackResponse.tracks.items.isNotEmpty()) {
                                         for (track in trackResponse!!.tracks.items){
-                                            System.out.println(track.name + track.album.name)
-                                            System.out.println(track.album.artists[0].toString())
+                                            System.out.println("Track url: "+track.preview_url)
                                             list.add(track)
                                         }
                                         _ListMutableData.value = list

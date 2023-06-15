@@ -2,7 +2,10 @@ package cr.ac.una.reproductodemusica.adapter
 
 
 
+import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.*
 import android.widget.*
@@ -23,10 +26,14 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_HEADER = 1
     private val VIEW_TYPE_ITEM = 0
+    private var mediaPlayer = MediaPlayer()
+    private var currentsource : String? = null
+    private var lastview : View? = null
 
     public var page = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
 
         return if (viewType == VIEW_TYPE_HEADER) {
             val view = LayoutInflater.from(parent.context)
@@ -134,6 +141,40 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
                 }
                 popupMenu.show()
             }
+
+            itemView.setOnClickListener{
+
+                try {
+
+                    if (mediaPlayer.isPlaying && currentsource == track.preview_url){
+                        lastview!!.findViewById<ImageView>(R.id.ImageState).setImageResource(R.drawable.pause)
+                        mediaPlayer.pause()
+                    }else if (!mediaPlayer.isPlaying && currentsource == track.preview_url){
+                        lastview!!.findViewById<ImageView>(R.id.ImageState).setImageResource(R.drawable.skip_next)
+                        mediaPlayer.start()
+                    }else{
+                        if (lastview != null){
+                            lastview!!.findViewById<ImageView>(R.id.ImageState).setImageDrawable(null)
+                            lastview!!.findViewById<ImageView>(R.id.ImageState).setBackgroundColor(Color.TRANSPARENT)
+                        }
+                        itemView.findViewById<ImageView>(R.id.ImageState).setImageResource(R.drawable.skip_next)
+                        itemView.findViewById<ImageView>(R.id.ImageState).setBackgroundColor(Color.BLACK)
+                        mediaPlayer.reset()
+                        mediaPlayer.setDataSource(track.preview_url)
+                        currentsource = track.preview_url
+                        lastview = itemView
+                        mediaPlayer.prepare()
+                        mediaPlayer.start()
+                    }
+
+
+                }
+                catch (e: Exception){
+                    Toast.makeText(itemView.context, "La cancion no cuenta con preview", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
             GlobalScope.launch {
                 withContext(Dispatchers.IO){
                     val url = URL(track.album.images[0].url)

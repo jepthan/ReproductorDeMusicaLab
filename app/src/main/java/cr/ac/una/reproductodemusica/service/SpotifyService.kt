@@ -9,7 +9,8 @@ interface SpotifyService {
     @POST("api/token")
     fun getAccessToken(
         @Header("Authorization") authorization: String,
-        @Field("grant_type") grantType: String
+        @Field("grant_type") grantType: String,
+        @Field("scope") scope: String = "user-read-private user-read-email user-modify-playback-state"
     ): Call<AccessTokenResponse>
 
     @GET("v1/search?type=track")
@@ -35,4 +36,6 @@ interface SpotifyService {
         @Header("Authorization") authorization: String,
         @Path("id") id: String
     ): Call<Artist>
+
+
 }

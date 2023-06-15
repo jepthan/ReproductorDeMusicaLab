@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         val menuItem = menu.findItem(R.id.action_search);
 
         val searchView = menuItem.actionView as SearchView;
-
         searchView.queryHint = "Buscar... ";
         //searchView.findViewById<AutoCompleteTextView>(R.id.).threshold = 1
 
@@ -77,10 +76,10 @@ class MainActivity : AppCompatActivity() {
             to,
             CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER
         )
-        //val suggestions = listOf("Apple", "Blueberry", "Carrot", "Daikon")
+
 
         searchView.suggestionsAdapter = cursorAdapter
-
+        val busquedaDao = AppDatabase.getInstance(applicationContext).busquedaDao()
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -92,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
                 val fragobj = MusicListFragment()
                 fragobj.setArguments(bundle)
-                val busquedaDao = AppDatabase.getInstance(applicationContext).busquedaDao()
+                //busquedaDao = AppDatabase.getInstance(applicationContext).busquedaDao()
 
                 val busqueda = Busqueda(null, query!!, Date())
                 GlobalScope.launch {
@@ -117,19 +116,26 @@ class MainActivity : AppCompatActivity() {
 
                 if (query!!.length >= 3) {
 
+
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {
-                            val busquedaDao = AppDatabase.getInstance(applicationContext).busquedaDao()
+
                             val cursor =
                                 MatrixCursor(arrayOf(BaseColumns._ID, SearchManager.SUGGEST_COLUMN_TEXT_1))
-
+                            System.out.println("Muerase1" + query)
                             val sugerencias = busquedaDao.buscarCoincidencias(query)
 
                             sugerencias.forEachIndexed { index, s ->
                                 cursor.addRow(arrayOf(index, s))
+                                System.out.println("Muerase " + s)
                             }
                             withContext(Dispatchers.Main){
                                 cursorAdapter.changeCursor(cursor)
+                                cursorAdapter.notifyDataSetChanged()
+                                //searchView.setSuggestionsAdapter(cursorAdapter)
+                                searchView.setQuery(query, false)
+
+                                System.out.println("Muerase2" + query)
                             }
 
                         }
