@@ -150,19 +150,19 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
                         lastview!!.findViewById<ImageView>(R.id.ImageState).setImageResource(R.drawable.pause)
                         mediaPlayer.pause()
                     }else if (!mediaPlayer.isPlaying && currentsource == track.preview_url){
-                        lastview!!.findViewById<ImageView>(R.id.ImageState).setImageResource(R.drawable.skip_next)
+                        lastview!!.findViewById<ImageView>(R.id.ImageState).setImageResource(R.drawable.play)
                         mediaPlayer.start()
                     }else{
                         if (lastview != null){
                             lastview!!.findViewById<ImageView>(R.id.ImageState).setImageDrawable(null)
                             lastview!!.findViewById<ImageView>(R.id.ImageState).setBackgroundColor(Color.TRANSPARENT)
                         }
-                        itemView.findViewById<ImageView>(R.id.ImageState).setImageResource(R.drawable.skip_next)
+                        itemView.findViewById<ImageView>(R.id.ImageState).setImageResource(R.drawable.play)
                         itemView.findViewById<ImageView>(R.id.ImageState).setBackgroundColor(Color.BLACK)
+                        lastview = itemView
                         mediaPlayer.reset()
                         mediaPlayer.setDataSource(track.preview_url)
                         currentsource = track.preview_url
-                        lastview = itemView
                         mediaPlayer.prepare()
                         mediaPlayer.start()
                     }

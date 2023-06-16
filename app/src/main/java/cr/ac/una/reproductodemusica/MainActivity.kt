@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         searchView.suggestionsAdapter = cursorAdapter
         val busquedaDao = AppDatabase.getInstance(applicationContext).busquedaDao()
-
+        var activeSearch = false
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
@@ -113,7 +113,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(query: String?): Boolean {
 
-                if (query!!.length >= 3) {
+                if (query!!.length >= 3 && !activeSearch) {
+                    activeSearch = true
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {
 
@@ -130,6 +131,7 @@ class MainActivity : AppCompatActivity() {
                                 cursorAdapter.changeCursor(cursor)
                                 cursorAdapter.notifyDataSetChanged()
                                 searchView.setQuery(query, false)
+                                activeSearch = false
 
                             }
 
