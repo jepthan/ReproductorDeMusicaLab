@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import cr.ac.una.reproductodemusica.AlbumFragment
 import cr.ac.una.reproductodemusica.ArtistaFragment
+import cr.ac.una.reproductodemusica.ArtistaRelFragment
 import cr.ac.una.reproductodemusica.R
 import cr.ac.una.reproductodemusica.entity.Track
 import kotlinx.coroutines.Dispatchers
@@ -100,6 +101,8 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
                         itemView.findNavController().navigate(R.id.action_AlbumFragment_self, bundle)
                     }else if (page == 3){
                         itemView.findNavController().navigate(R.id.action_ArtistFragment_to_albumFragment, bundle)
+                    }else if (page == 4){
+                        itemView.findNavController().navigate(R.id.action_ArtistFragment_to_ArtistaRelFragment, bundle)
                     }
 
                     true
@@ -117,6 +120,26 @@ class TracksAdapter(var tracks: ArrayList<Track>) :
                         itemView.findNavController().navigate(R.id.action_AlbumFragment_to_ArtistFragment, bundle)
                     }else if (page == 3){
                         itemView.findNavController().navigate(R.id.action_ArtistFragment_to_self, bundle)
+                    }else if (page == 4){
+                        itemView.findNavController().navigate(R.id.action_ArtistaRelFragment_to_ArtistFragment, bundle)
+                    }
+                    true
+                }
+                R.id.ArtistaRelacionados-> {
+                    val bundle = Bundle()
+                    bundle.putString("ArtistId", track.album.artists[0].id)
+                    println("ArtistId: ${track.album.artists[0].id}")
+                    var fragobj = ArtistaRelFragment()
+                    fragobj.arguments = bundle
+                    if (page == 1){
+                        itemView.findNavController().navigate(R.id.action_MusicListFragment_to_ArtistaRelFragment, bundle)
+                    }
+                    else if(page == 2){
+                        itemView.findNavController().navigate(R.id.action_AlbumFragment_to_ArtistaRelFragment, bundle)
+                    }else if (page == 3){
+                        itemView.findNavController().navigate(R.id.action_ArtistFragment_to_ArtistaRelFragment, bundle)
+                    }else if (page == 4){
+                        itemView.findNavController().navigate(R.id.action_ArtistaRelFragment_to_self, bundle)
                     }
                     true
                 }

@@ -19,6 +19,9 @@ class ArtistViewModel : ViewModel() {
     private val _ArtistMutableData: MutableLiveData<Artist> = MutableLiveData()
     val artistLiveData : LiveData<Artist> =_ArtistMutableData
 
+    private val _ArtistRelMutableData: MutableLiveData<List<Artist>> = MutableLiveData()
+    val artistRelLiveData : LiveData<List<Artist>> =_ArtistRelMutableData
+
     private val spotifyServiceToken: SpotifyService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://accounts.spotify.com/")
@@ -123,9 +126,71 @@ class ArtistViewModel : ViewModel() {
             }
         })
     }
+
+    private fun getArtistRel(id: String){
+        val clientId = "f13969da015a4f49bb1f1edef2185d4e"
+        val clientSecret = "e3077426f4714315937111d5e82cd918"
+        val base64Auth = Base64.encodeToString("$clientId:$clientSecret".toByteArray(), Base64.NO_WRAP)
+
+        val tokenRequest = spotifyServiceToken.getAccessToken(
+            "Basic $base64Auth",
+            "client_credentials"
+        )
+
+        tokenRequest.enqueue(object : Callback<AccessTokenResponse> {
+            override fun onResponse(call: Call<AccessTokenResponse>, response: Response<AccessTokenResponse>) {
+
+                if (response.isSuccessful){
+
+                    val accessTokenResponse = response.body()
+                    val accessToken = accessTokenResponse?.accessToken
+
+                    if (accessToken != null) {
+                        val ArtistTopRequest = spotifyService.getArtistRel("Bearer $accessToken", id)
+                        ArtistTopRequest.enqueue(object : Callback<Artists> {
+                            val list = mutableListOf<Artist>()
+                            override fun onResponse(call: Call<Artists>, response: Response<Artists>) {
+                                if (response.isSuccessful) {
+                                    System.out.println(response.toString())
+                                    System.out.println(response.body().toString())
+                                    for (artist in response.body()!!.artists){
+                                        list.add(artist)
+                                    }
+                                _ArtistRelMutableData.value = list
+                                } else {
+                                    displayErrorMessage("Error en la respuesta del servidor.")
+                                }
+                            }
+                            override fun onFailure(call: Call<Artists>, t: Throwable) {
+                                displayErrorMessage(t.toString())
+                                displayErrorMessage("Error en la solicitud de Artista.")
+                            }
+                        })
+                    } else {
+                        displayErrorMessage("Error al obtener el accessToken.")
+                    }
+                    val trackRequest = spotifyService.getAlbum("Bearer $accessToken", id)
+                }else{
+                    System.out.println("Mensaje:    "+response.raw())
+                    displayErrorMessage("Error en la respuesta del servidor.")
+
+                }
+            }
+            override fun onFailure(call: Call<AccessTokenResponse>, t: Throwable) {
+                displayErrorMessage("Error en la solicitud de accessToken.")
+            }
+        })
+    }
+
     public fun getArtis(id: String?){
         if (id != null || id == "") {
             getArtistTops(id)
+        }
+
+    }
+    public fun getRelatedArtist(id: String?){
+        if (id != null || id == "") {
+            getArtistRel(id)
         }
 
     }

@@ -21,6 +21,10 @@
             android:id="@+id/action_MusicListFragment_to_ArtisFragment"
             app:destination="@id/ArtistFragment"
             />
+        <action
+            android:id="@+id/action_MusicListFragment_to_ArtistaRelFragment"
+            app:destination="@id/ArtistaRelFragment"
+            />
 
     </fragment>
     <fragment
@@ -39,6 +43,10 @@
         <action
             android:id="@+id/action_AlbumFragment_self"
             app:destination="@id/AlbumFragment" />
+        <action
+            android:id="@+id/action_AlbumFragment_to_ArtistaRelFragment"
+            app:destination="@id/ArtistaRelFragment"
+            />
 
     </fragment>
 
@@ -53,6 +61,27 @@
         <action
             android:id="@+id/action_ArtistFragment_to_self"
             app:destination="@id/ArtistFragment" />
+        <action
+            android:id="@+id/action_ArtistFragment_to_ArtistaRelFragment"
+            app:destination="@id/ArtistaRelFragment"
+            />
+
 
     </fragment>
+
+    <fragment
+        android:id="@+id/ArtistaRelFragment"
+        android:name="cr.ac.una.reproductodemusica.ArtistaRelFragment"
+        android:label="Artista Relacionado"
+        >
+        <action
+            android:id="@+id/action_ArtistaRelFragment_to_ArtistFragment"
+            app:destination="@id/ArtistFragment" />
+        <action
+            android:id="@+id/action_ArtistaRelFragment_to_self"
+            app:destination="@id/ArtistaRelFragment" />
+
+
+    </fragment>
+
 </navigation>

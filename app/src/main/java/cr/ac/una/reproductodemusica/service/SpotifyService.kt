@@ -37,5 +37,9 @@ interface SpotifyService {
         @Path("id") id: String
     ): Call<Artist>
 
-
+    @GET("v1/artists/{id}/related-artists")
+    fun getArtistRel(
+        @Header("Authorization") authorization: String,
+        @Path("id") id: String
+    ): Call<Artists>
 }

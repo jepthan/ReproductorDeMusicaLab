@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(query: String?): Boolean {
 
-                if (query!!.length >= 3 && !activeSearch) {
+                if (query!!.length >= 5 && !activeSearch) {
                     activeSearch = true
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {

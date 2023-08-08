@@ -12,4 +12,9 @@
         android:title="Artista"
         app:showAsAction="never">
     </item>
+    <item android:id="@+id/ArtistaRelacionados"
+        android:title="Artistas Relacionados"
+        app:showAsAction="never">
+
+    </item>
 </menu>
